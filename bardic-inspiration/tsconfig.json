@@ -20,7 +20,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": [
+      "node",
+      "gapi", // google
+      "gapi.auth2", // google
+      "facebook-js-sdk" // facebook
+    ]
   },
   "include": ["src", "src/*", "src/**/*.*"]
 }

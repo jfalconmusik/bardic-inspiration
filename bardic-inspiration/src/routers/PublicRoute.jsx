@@ -2,34 +2,32 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { ADMIN_DASHBOARD, SIGNIN, SIGNUP } from "../constants/routes";
 import PropType from "prop-types";
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Navigate, Route } from "react-router-dom";
 
-const PublicRoute = ({ isAuth, role, component: Component, path, ...rest }) => (
-  <Route
-    {...rest}
-    // eslint-disable-next-line consistent-return
-    render={(props) => {
-      // eslint-disable-next-line react/prop-types
-      const { from } = props.location.state || { from: { pathname: "/" } };
+const PublicRoute = ({ isAuth, role, component: Component, path, props }) => {
+  // eslint-disable-next-line react/prop-types
+  const { from } = props?.location?.state || { from: { pathname: "/" } };
 
-      if (isAuth && role === "ADMIN") {
-        return <Navigate to={ADMIN_DASHBOARD} />;
-      }
+  useEffect(() => {
+    console.log("isAuth: ", isAuth);
+  });
 
-      if (isAuth && role === "USER" && (path === SIGNIN || path === SIGNUP)) {
-        return <Navigate to={from} />;
-      }
+  if (isAuth && role === "ADMIN") {
+    return <Navigate to={ADMIN_DASHBOARD} />;
+  }
 
-      return (
-        <main className="content">
-          <Component {...props} />
-        </main>
-      );
-    }}
-  />
-);
+  if (isAuth && role === "USER" && (path === SIGNIN || path === SIGNUP)) {
+    return <Navigate to={from} />;
+  }
+
+  return (
+    <main className="content">
+      <Component {...props} />
+    </main>
+  );
+};
 
 PublicRoute.defaultProps = {
   isAuth: false,

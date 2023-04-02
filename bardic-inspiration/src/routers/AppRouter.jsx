@@ -19,56 +19,126 @@ const AppRouter = () => (
       <Navigation />
       <Basket />
       <Routes>
-        <Route component={view.Search} exact path={ROUTES.SEARCH} />
-        <Route component={view.Home} exact path={ROUTES.HOME} />
-        <Route component={view.Shop} exact path={ROUTES.SHOP} />
+        <Route element={<view.Home />} path={ROUTES.HOME} />
+        <Route element={<view.Search />} path={ROUTES.SEARCH} />
+        <Route element={<view.Shop />} path={ROUTES.SHOP} />
         <Route
-          component={view.FeaturedProducts}
-          exact
+          element={<view.FeaturedProducts />}
           path={ROUTES.FEATURED_PRODUCTS}
         />
         <Route
-          component={view.RecommendedProducts}
-          exact
+          element={<view.RecommendedProducts />}
           path={ROUTES.RECOMMENDED_PRODUCTS}
         />
-        {/* <PublicRoute component={view.SignUp} path={ROUTES.SIGNUP} /> */}
-        {/* <PublicRoute component={view.SignIn} exact path={ROUTES.SIGNIN} /> */}
-        {/* <PublicRoute
-          component={view.ForgotPassword}
+        <Route
+          element={<PublicRoute component={view.SignUp} path={ROUTES.SIGNUP} />}
+          path={ROUTES.SIGNUP}
+        />
+        <Route
+          element={<PublicRoute component={view.SignIn} path={ROUTES.SIGNIN} />}
+          path={ROUTES.SIGNIN}
+        />
+        <Route
+          element={
+            <PublicRoute
+              component={view.ForgotPassword}
+              path={ROUTES.FORGOT_PASSWORD}
+            />
+          }
           path={ROUTES.FORGOT_PASSWORD}
-        /> */}
-        {/* <Route component={view.ViewProduct} path={ROUTES.VIEW_PRODUCT} /> */}
-        {/* <ClientRoute component={view.UserAccount} exact path={ROUTES.ACCOUNT} /> */}
-        {/* <ClientRoute
-          component={view.EditAccount}
-          exact
+        />
+        <Route element={<view.ViewProduct />} path={ROUTES.VIEW_PRODUCT} />
+        <Route
+          element={
+            <ClientRoute component={view.UserAccount} path={ROUTES.ACCOUNT} />
+          }
+          path={ROUTES.ACCOUNT}
+        />
+
+        <Route
+          element={
+            <ClientRoute
+              component={view.EditAccount}
+              path={ROUTES.ACCOUNT_EDIT}
+            />
+          }
           path={ROUTES.ACCOUNT_EDIT}
-        /> */}
-        {/* <ClientRoute
-          component={view.CheckOutStep1}
+        />
+
+        <Route
+          element={
+            <ClientRoute
+              component={view.CheckOutStep1}
+              path={ROUTES.CHECKOUT_STEP_1}
+            />
+          }
           path={ROUTES.CHECKOUT_STEP_1}
-        /> */}
-        {/* <ClientRoute
-          component={view.CheckOutStep2}
+        />
+
+        <Route
+          element={
+            <ClientRoute
+              component={view.CheckOutStep2}
+              path={ROUTES.CHECKOUT_STEP_2}
+            />
+          }
           path={ROUTES.CHECKOUT_STEP_2}
-        /> */}
-        {/* <ClientRoute
-          component={view.CheckOutStep3}
+        />
+
+        <Route
+          element={
+            <ClientRoute
+              component={view.CheckOutStep3}
+              path={ROUTES.CHECKOUT_STEP_3}
+            />
+          }
           path={ROUTES.CHECKOUT_STEP_3}
-        /> */}
-        {/* <AdminRoute
-          component={view.Dashboard}
-          exact
+        />
+
+        <Route
+          element={
+            <AdminRoute
+              component={view.Dashboard}
+              path={ROUTES.ADMIN_DASHBOARD}
+            />
+          }
           path={ROUTES.ADMIN_DASHBOARD}
-        /> */}
-        {/* <AdminRoute component={view.Products} path={ROUTES.ADMIN_PRODUCTS} /> */}
-        {/* <AdminRoute component={view.AddProduct} path={ROUTES.ADD_PRODUCT} /> */}
-        {/* <AdminRoute
-          component={view.EditProduct}
+        />
+        <Route
+          element={
+            <AdminRoute
+              component={view.Products}
+              path={ROUTES.ADMIN_PRODUCTS}
+            />
+          }
+          path={ROUTES.ADMIN_PRODUCTS}
+        />
+        <Route
+          element={
+            <AdminRoute component={view.AddProduct} path={ROUTES.ADD_PRODUCT} />
+          }
+          path={ROUTES.ADD_PRODUCT}
+        />
+
+        <Route
+          element={
+            <AdminRoute
+              component={view.EditProduct}
+              path={`${ROUTES.EDIT_PRODUCT}/:id`}
+            />
+          }
           path={`${ROUTES.EDIT_PRODUCT}/:id`}
-        /> */}
-        {/* <PublicRoute component={view.PageNotFound} /> */}
+        />
+        <Route element={<view.PrivacyPolicy />} path={ROUTES.PRIVACY_POLICY} />
+        <Route
+          element={<view.TermsOfService />}
+          path={ROUTES.TERMS_OF_SERVICE}
+        />
+        <Route
+          element={<view.DataDeletion />}
+          path={ROUTES.DATA_DELETION_POLICY}
+        />
+        <Route element={<view.PageNotFound />} />
       </Routes>
       <Footer />
     </>

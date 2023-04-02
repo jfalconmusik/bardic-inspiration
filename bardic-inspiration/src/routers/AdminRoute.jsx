@@ -6,26 +6,21 @@ import React from "react";
 import { connect } from "react-redux";
 import { Navigate, Route } from "react-router-dom";
 
-const AdminRoute = ({ isAuth, role, component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    component={(props) =>
-      isAuth && role === "ADMIN" ? (
-        <>
-          <AdminNavigation />
-          <main className="content-admin">
-            <AdminSideBar />
-            <div className="content-admin-wrapper">
-              <Component {...props} />
-            </div>
-          </main>
-        </>
-      ) : (
-        <Navigate to="/" />
-      )
-    }
-  />
-);
+const AdminRoute = ({ isAuth, role, component: Component, props }) => {
+  isAuth && role === "ADMIN" ? (
+    <>
+      <AdminNavigation />
+      <main className="content-admin">
+        <AdminSideBar />
+        <div className="content-admin-wrapper">
+          <Component {...props} />
+        </div>
+      </main>
+    </>
+  ) : (
+    <Navigate to="/" />
+  );
+};
 
 const mapStateToProps = ({ auth }) => ({
   isAuth: !!auth,

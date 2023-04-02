@@ -194,10 +194,7 @@ function* authSaga({ type, payload }) {
             provider: payload.providerData[0].providerId,
           })
         );
-      } else if (
-        payload.providerData[0].providerId !== "password" &&
-        !snapshot.data()
-      ) {
+      } else if (payload.providerData[0].providerId && !snapshot.data()) {
         // add the user if auth provider is not password
         const user = {
           fullname: payload.displayName ? payload.displayName : "User",
@@ -210,6 +207,7 @@ function* authSaga({ type, payload }) {
           role: "USER",
           dateJoined: payload.metadata.creationTime,
         };
+        console.log("user: ", user);
         yield call(firebase.addUser, payload.uid, user);
         yield put(setProfile(user));
         yield put(

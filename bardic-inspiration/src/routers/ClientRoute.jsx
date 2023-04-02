@@ -7,34 +7,29 @@ import React from "react";
 import { connect } from "react-redux";
 import { Navigate, Route } from "react-router-dom";
 
-const PrivateRoute = ({ isAuth, role, component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    component={(props) => {
-      if (isAuth && role === "USER") {
-        return (
-          <main className="content">
-            <Component {...props} />
-          </main>
-        );
-      }
+const PrivateRoute = ({ isAuth, role, component: Component, props }) => {
+  if (isAuth && role === "USER") {
+    return (
+      <main className="content">
+        <Component {...props} />
+      </main>
+    );
+  }
 
-      if (isAuth && role === "ADMIN") {
-        return <Navigate to={ADMIN_DASHBOARD} />;
-      }
+  if (isAuth && role === "ADMIN") {
+    return <Navigate to={ADMIN_DASHBOARD} />;
+  }
 
-      return (
-        <Navigate
-          to={{
-            pathname: SIGNIN,
-            // eslint-disable-next-line react/prop-types
-            state: { from: props.location },
-          }}
-        />
-      );
-    }}
-  />
-);
+  return (
+    <Navigate
+      to={{
+        pathname: SIGNIN,
+        // eslint-disable-next-line react/prop-types
+        state: { from: props.location },
+      }}
+    />
+  );
+};
 
 PrivateRoute.defaultProps = {
   isAuth: false,
