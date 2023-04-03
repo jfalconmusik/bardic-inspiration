@@ -1,11 +1,15 @@
 /* eslint-disable no-nested-ternary */
 import { useDidMount } from "../../hooks";
 import PropType from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { withRouter } from "../../helpers/utils";
-import { applyFilter, resetFilter } from "../../redux/actions/filterActions";
+import {
+  applyFilter,
+  resetFilter,
+  setTextFilter,
+} from "../../redux/actions/filterActions";
 import { selectMax, selectMin } from "../../selectors/selector";
 import PriceRange from "./PriceRange";
 
@@ -16,10 +20,11 @@ const Filters = ({ closeModal }) => {
     products: state.products.items,
   }));
   const [field, setFilter] = useState({
-    brand: filter.brand,
+    keyword: filter.keyword,
     minPrice: filter.minPrice,
     maxPrice: filter.maxPrice,
     sortBy: filter.sortBy,
+    brand: "",
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -43,10 +48,11 @@ const Filters = ({ closeModal }) => {
     setFilter({ ...field, minPrice: minVal, maxPrice: maxVal });
   };
 
-  const onBrandFilterChange = (e) => {
+  const onKeywordFilterChange = (e) => {
     const val = e.target.value;
 
-    setFilter({ ...field, brand: val });
+    setFilter({ ...field, keyword: val });
+    // setTextFilter(val);
   };
 
   const onSortFilterChange = (e) => {
@@ -70,7 +76,7 @@ const Filters = ({ closeModal }) => {
   };
 
   const onResetFilter = () => {
-    const filterFields = ["brand", "minPrice", "maxPrice", "sortBy"];
+    const filterFields = ["keyword", "minPrice", "maxPrice", "sortBy"];
 
     if (filterFields.some((key) => !!filter[key])) {
       dispatch(resetFilter());
@@ -79,26 +85,45 @@ const Filters = ({ closeModal }) => {
     }
   };
 
+  const keywords = useMemo(() => {
+    console.log(products);
+    const kwSet = new Set();
+
+    products.forEach((product) => {
+      const keywords = product.keywords;
+
+      keywords?.forEach((keyword) => {
+        kwSet.add(keyword);
+      });
+    });
+    console.log(kwSet);
+    return [...kwSet];
+  }, [products]);
+
   return (
     <div className="filters">
       <div className="filters-field">
-        <span>Brand</span>
+        <span>Keyword</span>
         <br />
         <br />
-        {products.length === 0 && isLoading ? (
+        {products.length === 0 && isLoading && !keywords ? (
           <h5 className="text-subtle">Loading Filter</h5>
         ) : (
           <select
             className="filters-brand"
-            value={field.brand}
+            value={field.keyword}
             disabled={isLoading || products.length === 0}
-            onChange={onBrandFilterChange}
+            onChange={onKeywordFilterChange}
           >
-            <option value="">All Brands</option>
+            <option value={null}>--</option>;
+            {keywords?.map?.((keyword) => {
+              return <option value={keyword}>{keyword}</option>;
+            })}
+            {/* <option value="">All Brands</option>
             <option value="salt">Salt Maalat</option>
             <option value="betsin">Betsin Maalat</option>
             <option value="black">Black Kibal</option>
-            <option value="sexbomb">Sexbomb</option>
+            <option value="sexbomb">Sexbomb</option> */}
           </select>
         )}
       </div>

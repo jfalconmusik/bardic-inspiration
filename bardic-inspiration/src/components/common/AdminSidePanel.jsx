@@ -14,9 +14,12 @@ const SideNavigation = () => (
           Products
         </NavLink>
       </div>
-      {/* <div className="sidenavigation-item">
-        <h4 className="sidenavigation-menu my-0">Users</h4>
-      </div> */}
+      <div className="sidenavigation-item">
+        <h4 className="sidenavigation-menu my-0">Articles</h4>
+      </div>
+      <div className="sidenavigation-item">
+        <h4 className="sidenavigation-menu my-0">Videos</h4>
+      </div>
     </div>
   </aside>
 );

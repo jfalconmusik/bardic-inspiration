@@ -25,7 +25,7 @@ const FormSchema = Yup.object().shape({
   name: Yup.string()
     .required("Product name is required.")
     .max(60, "Product name must only be less than 60 characters."),
-  brand: Yup.string().required("Brand name is required."),
+  brand: Yup.string(),
   price: Yup.number()
     .positive("Price is invalid.")
     .integer("Price should be an integer.")
@@ -37,15 +37,15 @@ const FormSchema = Yup.object().shape({
     .required("Max quantity is required."),
   keywords: Yup.array()
     .of(Yup.string())
-    .min(1, "Please enter at least 1 keyword for this product."),
+    .min(0, "Please enter at least 1 keyword for this product."),
   sizes: Yup.array()
-    .of(Yup.number())
-    .min(1, "Please enter a size for this product."),
+    .of(Yup.string())
+    .min(0, "Please enter a size for this product."),
   isFeatured: Yup.boolean(),
   isRecommended: Yup.boolean(),
   availableColors: Yup.array()
     .of(Yup.string().required())
-    .min(1, "Please add a default color for this product."),
+    .min(0, "Please add a default color for this product."),
 });
 
 const ProductForm = ({ product, onSubmit, isLoading }) => {
@@ -56,7 +56,7 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
     maxQuantity: product?.maxQuantity || 0,
     description: product?.description || "",
     keywords: product?.keywords || [],
-    sizes: product?.sizes || [],
+    sizes: product?.sizes || ["N/A"],
     isFeatured: product?.isFeatured || false,
     isRecommended: product?.isRecommended || false,
     availableColors: product?.availableColors || [],
@@ -110,7 +110,7 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
                   />
                 </div>
                 &nbsp;
-                <div className="product-form-field">
+                {/* <div className="product-form-field">
                   <CustomCreatableSelect
                     defaultValue={{ label: values.brand, value: values.brand }}
                     name="brand"
@@ -120,7 +120,7 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
                     placeholder="Select/Create Brand"
                     label="* Brand"
                   />
-                </div>
+                </div> */}
               </div>
               <div className="product-form-field">
                 <Field
@@ -167,23 +167,22 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
                     isMulti
                     disabled={isLoading}
                     placeholder="Create/Select Keywords"
-                    label="* Keywords"
+                    label="Keywords"
                   />
                 </div>
                 &nbsp;
                 <div className="product-form-field">
                   <CustomCreatableSelect
-                    defaultValue={values.keywords.map((key) => ({
+                    defaultValue={values.sizes.map((key) => ({
                       value: key,
                       label: key,
                     }))}
                     name="sizes"
                     iid="sizes"
-                    type="number"
                     isMulti
                     disabled={isLoading}
                     placeholder="Create/Select Sizes"
-                    label="* Sizes (Millimeter)"
+                    label="Sizes"
                   />
                 </div>
               </div>

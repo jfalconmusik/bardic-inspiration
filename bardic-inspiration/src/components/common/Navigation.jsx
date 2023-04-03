@@ -52,7 +52,11 @@ const Navigation = () => {
     ROUTE.FORGOT_PASSWORD,
   ];
 
-  if (store.user && store.user.role === "ADMIN") {
+  if (
+    store.user &&
+    store.user.role === "ADMIN" &&
+    pathname.includes("/admin")
+  ) {
     return null;
   }
   if (window.screen.width <= 800) {

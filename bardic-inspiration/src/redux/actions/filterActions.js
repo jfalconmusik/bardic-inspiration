@@ -19,6 +19,8 @@ export const setBrandFilter = (brand) => ({
   payload: brand,
 });
 
+export const setKeywordFilter = (keyword) => setTextFilter(keyword);
+
 export const setMinPriceFilter = (min) => ({
   type: SET_MIN_PRICE_FILTER,
   payload: min,

@@ -121,7 +121,7 @@ const ViewProduct = () => {
               <div className="divider" />
               <br />
               <div>
-                <span className="text-subtle">Lens Width and Frame Size</span>
+                <span className="text-subtle">Select Size</span>
                 <br />
                 <br />
                 <Select
@@ -129,14 +129,14 @@ const ViewProduct = () => {
                   onChange={onSelectedSizeChange}
                   options={product.sizes
                     .sort((a, b) => (a < b ? -1 : 1))
-                    .map((size) => ({ label: `${size} mm`, value: size }))}
+                    .map((size) => ({ label: `${size}`, value: size }))}
                   styles={{ menu: (provided) => ({ ...provided, zIndex: 10 }) }}
                 />
               </div>
               <br />
               {product.availableColors.length >= 1 && (
                 <div>
-                  <span className="text-subtle">Choose Color</span>
+                  <span className="text-subtle">Select Color</span>
                   <br />
                   <br />
                   <ColorChooser
