@@ -15,11 +15,11 @@ import { removeProduct } from "../../../redux/actions/productActions";
 
 const ProductItem = ({ product }) => {
   const dispatch = useDispatch();
-  const history = useNavigate();
+  const navigate = useNavigate();
   const productRef = useRef(null);
 
   const onClickEdit = () => {
-    history.push(`${EDIT_PRODUCT}/${product.id}`);
+    navigate(`${EDIT_PRODUCT}/${product.id}`);
   };
 
   const onDeleteProduct = () => {

@@ -16,7 +16,7 @@ const Basket = () => {
     basket: state.basket,
     user: state.auth,
   }));
-  const history = useNavigate();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const didMount = useDidMount();
@@ -37,7 +37,7 @@ const Basket = () => {
   const onCheckOut = () => {
     if (basket.length !== 0 && user) {
       document.body.classList.remove("is-basket-open");
-      history.push(CHECKOUT_STEP_1);
+      navigate(CHECKOUT_STEP_1);
     } else {
       onOpenModal();
     }
@@ -46,7 +46,7 @@ const Basket = () => {
   const onSignInClick = () => {
     onCloseModal();
     document.body.classList.remove("basket-open");
-    history.push(CHECKOUT_STEP_1);
+    navigate(CHECKOUT_STEP_1);
   };
 
   const onClearBasket = () => {

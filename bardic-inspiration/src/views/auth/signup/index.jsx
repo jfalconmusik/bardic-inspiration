@@ -30,7 +30,7 @@ const SignInSchema = Yup.object().shape({
     .min(4, "Name should be at least 4 characters."),
 });
 
-const SignUp = ({ history }) => {
+const SignUp = ({ navigate }) => {
   const { isAuthenticating, authStatus } = useSelector((state) => ({
     isAuthenticating: state.app.isAuthenticating,
     authStatus: state.app.authStatus,
@@ -48,7 +48,7 @@ const SignUp = ({ history }) => {
     []
   );
 
-  const onClickSignIn = () => history.push(SIGNIN);
+  const onClickSignIn = () => navigate(SIGNIN);
 
   const onFormSubmit = (form) => {
     dispatch(
@@ -170,9 +170,7 @@ const SignUp = ({ history }) => {
 };
 
 SignUp.propTypes = {
-  history: PropType.shape({
-    push: PropType.func,
-  }).isRequired,
+  navigate: PropType.shape(() => {}).isRequired,
 };
 
 export default SignUp;

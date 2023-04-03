@@ -10,10 +10,6 @@ const PublicRoute = ({ isAuth, role, component: Component, path, props }) => {
   // eslint-disable-next-line react/prop-types
   const { from } = props?.location?.state || { from: { pathname: "/" } };
 
-  useEffect(() => {
-    console.log("isAuth: ", isAuth);
-  });
-
   if (isAuth && role === "ADMIN") {
     return <Navigate to={ADMIN_DASHBOARD} />;
   }

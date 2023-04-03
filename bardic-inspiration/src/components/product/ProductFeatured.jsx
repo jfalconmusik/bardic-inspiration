@@ -5,11 +5,11 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useNavigate } from "react-router-dom";
 
 const ProductFeatured = ({ product }) => {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const onClickItem = () => {
     if (!product) return;
 
-    history.push(`/product/${product.id}`);
+    navigate(`/product/${product.id}`);
   };
 
   return (

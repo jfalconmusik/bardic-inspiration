@@ -41,7 +41,7 @@ const ShippingDetails = ({ profile, shipping, subtotal }) => {
   useDocumentTitle("Check Out Step 2 | Salinaka");
   useScrollTop();
   const dispatch = useDispatch();
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const initFormikValues = {
     fullname: shipping.fullname || profile.fullname || "",
@@ -63,7 +63,7 @@ const ShippingDetails = ({ profile, shipping, subtotal }) => {
         isDone: true,
       })
     );
-    history.push(CHECKOUT_STEP_3);
+    navigate(CHECKOUT_STEP_3);
   };
 
   return (
@@ -89,7 +89,7 @@ const ShippingDetails = ({ profile, shipping, subtotal }) => {
                 <div className="checkout-shipping-action">
                   <button
                     className="button button-muted"
-                    onClick={() => history.push(CHECKOUT_STEP_1)}
+                    onClick={() => navigate(CHECKOUT_STEP_1)}
                     type="button"
                   >
                     <ArrowLeftOutlined />

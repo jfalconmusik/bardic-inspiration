@@ -30,7 +30,7 @@ const UserProfile = (props) => {
           </div>
           <button
             className="button button-small user-profile-edit"
-            onClick={() => props.history.push(ACCOUNT_EDIT)}
+            onClick={() => props.navigate(ACCOUNT_EDIT)}
             type="button"
           >
             Edit Account
@@ -69,9 +69,7 @@ const UserProfile = (props) => {
 };
 
 UserProfile.propTypes = {
-  history: PropType.shape({
-    push: PropType.func,
-  }).isRequired,
+  navigate: PropType.shape(() => {}).isRequired,
 };
 
 export default withRouter(UserProfile);

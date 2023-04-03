@@ -7,13 +7,13 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useNavigate } from "react-router-dom";
 
 const ProductItem = ({ product, isItemOnBasket, addToBasket }) => {
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const onClickItem = () => {
     if (!product) return;
 
     if (product.id) {
-      history.push(`/product/${product.id}`);
+      navigate(`/product/${product.id}`);
     }
   };
 

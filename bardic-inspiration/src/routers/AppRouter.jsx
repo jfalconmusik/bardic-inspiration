@@ -104,6 +104,12 @@ const AppRouter = () => (
           }
           path={ROUTES.ADMIN_DASHBOARD}
         />
+        {/* <Route
+          element={
+            <AdminRoute component={view.Users} path={ROUTES.ADMIN_USERS} />
+          }
+          path={ROUTES.ADMIN_USERS}
+        /> */}
         <Route
           element={
             <AdminRoute

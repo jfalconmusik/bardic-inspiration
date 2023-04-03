@@ -14,9 +14,9 @@ const OrderSummary = ({ basket, subtotal }) => {
   useDocumentTitle("Check Out Step 1 | Salinaka");
   useScrollTop();
   const dispatch = useDispatch();
-  const history = useNavigate();
-  const onClickPrevious = () => history.push("/");
-  const onClickNext = () => history.push(CHECKOUT_STEP_2);
+  const navigate = useNavigate();
+  const onClickPrevious = () => navigate("/");
+  const onClickNext = () => navigate(CHECKOUT_STEP_2);
 
   return (
     <div className="checkout">

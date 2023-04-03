@@ -10,7 +10,7 @@ import { setPaymentDetails } from "../../../redux/actions/checkoutActions";
 
 const Total = ({ isInternational, subtotal }) => {
   const { values, submitForm } = useFormikContext();
-  const history = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const onClickBack = () => {
@@ -18,7 +18,7 @@ const Total = ({ isInternational, subtotal }) => {
     const { cardnumber, ccv, ...rest } = values;
 
     dispatch(setPaymentDetails({ ...rest })); // save payment details
-    history.push(CHECKOUT_STEP_2);
+    navigate(CHECKOUT_STEP_2);
   };
 
   return (

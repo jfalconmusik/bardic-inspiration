@@ -9,7 +9,7 @@ import {
 } from "../../redux/actions/filterActions";
 
 const ProductSearch = () => {
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const { productsLength, filter, products, isLoading } = useSelector(
     (state) => ({
@@ -33,14 +33,14 @@ const ProductSearch = () => {
 
     if (val === "" && productsLength !== 0) {
       dispatch(setTextFilter(val));
-      history.push("/");
+      navigate("/");
     }
   };
 
   const onKeyUp = (e) => {
     if (e.keyCode === 13 && productsLength !== 0) {
       dispatch(setTextFilter(input));
-      history.push("/");
+      navigate("/");
     }
   };
 
@@ -51,7 +51,7 @@ const ProductSearch = () => {
   return (
     <div className="product-search">
       <div className="product-search-header">
-        <h3 onClick={history.goBack} role="presentation">
+        <h3 onClick={navigate(-1)} role="presentation">
           <i className="fa fa-chevron-left" />
         </h3>
         <div className="product-search-wrapper">
@@ -86,7 +86,7 @@ const ProductSearch = () => {
                   className="pill-content margin-0"
                   onClick={() => {
                     dispatch(setTextFilter(item));
-                    history.push("/");
+                    navigate("/");
                   }}
                   role="presentation"
                 >

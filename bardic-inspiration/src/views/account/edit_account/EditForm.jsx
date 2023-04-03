@@ -11,7 +11,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const EditForm = ({ isLoading, authProvider }) => {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const { values, submitForm } = useFormikContext();
 
   return (
@@ -53,7 +53,7 @@ const EditForm = ({ isLoading, authProvider }) => {
         <button
           className="button button-muted w-100-mobile"
           disabled={isLoading}
-          onClick={() => history.push(ACCOUNT)}
+          onClick={() => navigate(ACCOUNT)}
           type="button"
         >
           <ArrowLeftOutlined />

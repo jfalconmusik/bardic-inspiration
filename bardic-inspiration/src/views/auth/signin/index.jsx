@@ -22,7 +22,7 @@ const SignInSchema = Yup.object().shape({
   password: Yup.string().required("Password is required."),
 });
 
-const SignIn = ({ history }) => {
+const SignIn = ({ navigate }) => {
   const { authStatus, isAuthenticating } = useSelector((state) => ({
     authStatus: state.app.authStatus,
     isAuthenticating: state.app.isAuthenticating,
@@ -41,7 +41,7 @@ const SignIn = ({ history }) => {
     []
   );
 
-  const onSignUp = () => history.push(SIGNUP);
+  const onSignUp = () => navigate(SIGNUP);
 
   const onSubmitForm = (form) => {
     dispatch(signIn(form.email, form.password));
@@ -159,9 +159,7 @@ const SignIn = ({ history }) => {
 };
 
 SignIn.propTypes = {
-  history: PropType.shape({
-    push: PropType.func,
-  }).isRequired,
+  navigate: PropType.shape(() => {}).isRequired,
 };
 
 export default SignIn;

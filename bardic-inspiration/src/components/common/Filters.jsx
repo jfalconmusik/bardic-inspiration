@@ -22,7 +22,7 @@ const Filters = ({ closeModal }) => {
     sortBy: filter.sortBy,
   });
   const dispatch = useDispatch();
-  const history = useNavigate();
+  const navigate = useNavigate();
   const didMount = useDidMount();
 
   const max = selectMax(products);
@@ -30,7 +30,7 @@ const Filters = ({ closeModal }) => {
 
   useEffect(() => {
     if (didMount && window.screen.width <= 480) {
-      history.push("/");
+      navigate("/");
     }
 
     if (didMount && closeModal) closeModal();
