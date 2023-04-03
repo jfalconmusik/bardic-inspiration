@@ -6,6 +6,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import AppRouter from "./routers/AppRouter";
 import { Store } from "redux";
 import { Persistor } from "redux-persist";
+import { ContextProvider } from "./Context";
 
 type Props = {
   store: Store;
@@ -13,17 +14,14 @@ type Props = {
 };
 
 const App = ({ store, persistor }: Props) => {
-  const fbLogin = useMemo(() => {
-    return FB.getLoginStatus(function (response) {
-      return response;
-    });
-  }, []);
   return (
     <StrictMode>
       <Provider store={store}>
-        <PersistGate loading={<Preloader />} persistor={persistor}>
-          <AppRouter />
-        </PersistGate>
+        <ContextProvider>
+          <PersistGate loading={<Preloader />} persistor={persistor}>
+            <AppRouter />
+          </PersistGate>
+        </ContextProvider>
       </Provider>
     </StrictMode>
   );

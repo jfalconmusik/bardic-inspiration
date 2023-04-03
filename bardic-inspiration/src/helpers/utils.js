@@ -50,6 +50,9 @@ export const displayMoney = (n) => {
   // or use toLocaleString()
   return format.format(n);
 };
+export const formatCents = (n) => {
+  return n * 100;
+};
 
 export const calculateTotal = (arr) => {
   if (!arr || arr?.length === 0) return 0;

@@ -2,14 +2,27 @@
 /* eslint-disable no-else-return */
 import { CustomInput } from "../../../components/formik";
 import { Field, useFormikContext } from "formik";
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
+import { Context } from "../../../Context";
+import { useSelector } from "react-redux";
+import { getFunctions, httpsCallable } from "firebase/functions";
 
 const CreditPayment = () => {
   const { values, setValues } = useFormikContext();
+  const { cost } = useContext(Context);
   const collapseContainerRef = useRef(null);
   const cardInputRef = useRef(null);
   const containerRef = useRef(null);
   const checkboxContainerRef = useRef(null);
+
+  const functions = getFunctions();
+
+  const store = useSelector((state) => ({
+    basketLength: state.basket.length,
+    user: state.auth,
+    isAuthenticating: state.app.isAuthenticating,
+    isLoading: state.app.loading,
+  }));
 
   const toggleCollapse = () => {
     const cn = containerRef.current;
@@ -44,6 +57,28 @@ const CreditPayment = () => {
       e.preventDefault();
     }
   };
+
+  const createIntent = async () => {
+    if (store.user) {
+      try {
+        const createPaymentIntent = httpsCallable(
+          functions,
+          "createPaymentIntent"
+        );
+        await createPaymentIntent({ cost }).then((response) => {
+          console.log(response);
+        });
+      } catch (error) {
+        console.log("Unable to run callable: ", error);
+      }
+    } else {
+      console.log("no user.");
+    }
+  };
+
+  useEffect(() => {
+    createIntent();
+  }, [cost, store.user]);
 
   return (
     <>

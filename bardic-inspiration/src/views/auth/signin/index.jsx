@@ -7,7 +7,7 @@ import { useDocumentTitle, useScrollTop } from "../../../hooks";
 import PropType from "prop-types";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signIn } from "../../../redux/actions/authActions";
 import {
   setAuthenticating,
@@ -22,14 +22,14 @@ const SignInSchema = Yup.object().shape({
   password: Yup.string().required("Password is required."),
 });
 
-const SignIn = ({ navigate }) => {
+const SignIn = ({}) => {
   const { authStatus, isAuthenticating } = useSelector((state) => ({
     authStatus: state.app.authStatus,
     isAuthenticating: state.app.isAuthenticating,
   }));
 
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   useScrollTop();
   useDocumentTitle("Sign In | Salinaka");
 
@@ -47,9 +47,9 @@ const SignIn = ({ navigate }) => {
     dispatch(signIn(form.email, form.password));
   };
 
-  const onClickLink = (e) => {
-    if (isAuthenticating) e.preventDefault();
-  };
+  // const onClickLink = (e) => {
+  //   if (isAuthenticating) e.preventDefault();
+  // };
 
   return (
     <div className="auth-content">
@@ -109,7 +109,7 @@ const SignIn = ({ navigate }) => {
                       <br />
                       <div className="auth-field auth-action">
                         <Link
-                          onClick={onClickLink}
+                          // onClick={onClickLink}
                           style={{ textDecoration: "underline" }}
                           to={FORGOT_PASSWORD}
                         >

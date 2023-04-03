@@ -5,10 +5,11 @@ import { ADMIN_DASHBOARD, SIGNIN } from "../constants/routes";
 import PropType from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
-import { Navigate, Route } from "react-router-dom";
+import { Navigate, Route, useLocation } from "react-router-dom";
 
 const PrivateRoute = ({ isAuth, role, component: Component, props }) => {
-  if (isAuth && role === "USER") {
+  const location = useLocation();
+  if (isAuth && (role === "USER" || role === "ADMIN")) {
     return (
       <main className="content">
         <Component {...props} />
@@ -25,7 +26,7 @@ const PrivateRoute = ({ isAuth, role, component: Component, props }) => {
       to={{
         pathname: SIGNIN,
         // eslint-disable-next-line react/prop-types
-        state: { from: props.location },
+        state: { from: location.pathname },
       }}
     />
   );

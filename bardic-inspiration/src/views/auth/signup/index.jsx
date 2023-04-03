@@ -13,6 +13,7 @@ import {
   setAuthStatus,
 } from "../../../redux/actions/miscActions";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string()
@@ -30,12 +31,13 @@ const SignInSchema = Yup.object().shape({
     .min(4, "Name should be at least 4 characters."),
 });
 
-const SignUp = ({ navigate }) => {
+const SignUp = ({}) => {
   const { isAuthenticating, authStatus } = useSelector((state) => ({
     isAuthenticating: state.app.isAuthenticating,
     authStatus: state.app.authStatus,
   }));
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useScrollTop();
   useDocumentTitle("Sign Up | Salinaka");

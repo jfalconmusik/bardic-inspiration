@@ -66,12 +66,11 @@ const UserNav = () => {
       </div>
       <DownOutlined style={{ fontSize: "1.2rem", marginLeft: "1rem" }} />
       <div className="user-nav-sub">
-        {profile.role !== "ADMIN" && (
-          <Link to={ACCOUNT} className="user-nav-sub-link">
-            View Account
-            <UserOutlined />
-          </Link>
-        )}
+        <Link to={ACCOUNT} className="user-nav-sub-link">
+          View Account
+          <UserOutlined />
+        </Link>
+
         <h6
           className="user-nav-sub-link margin-0 d-flex"
           onClick={() => dispatch(signOut())}

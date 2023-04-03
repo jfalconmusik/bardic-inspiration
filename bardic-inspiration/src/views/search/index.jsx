@@ -8,9 +8,11 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setRequestStatus } from "../../redux/actions/miscActions";
 import { searchProduct } from "../../redux/actions/productActions";
+import { useParams } from "react-router-dom";
 
-const Search = ({ match }) => {
-  const { searchKey } = match.params;
+const Search = () => {
+  const params = useParams();
+  const searchKey = params?.searchKey;
   const dispatch = useDispatch();
   const didMount = useDidMount(true);
   const store = useSelector((state) => ({

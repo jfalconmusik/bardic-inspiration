@@ -1,10 +1,19 @@
 import { useFormikContext } from "formik";
-import { displayMoney } from "../../../helpers/utils";
+import { displayMoney, formatCents } from "../../../helpers/utils";
 import PropType from "prop-types";
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { Context } from "../../../Context";
 
 const ShippingTotal = ({ subtotal }) => {
   const { values } = useFormikContext();
+  const { setCost } = useContext(Context);
+  const total = Number(subtotal) + (values.isInternational ? 50 : 0);
+  const displayTotal = displayMoney(total);
+  const cents = formatCents(total);
+
+  useEffect(() => {
+    setCost(cents);
+  }, []);
 
   return (
     <div className="checkout-total d-flex-end padding-right-m">
@@ -41,11 +50,7 @@ const ShippingTotal = ({ subtotal }) => {
               </span>
             </td>
             <td>
-              <h2 className="basket-total-amount text-right">
-                {displayMoney(
-                  Number(subtotal) + (values.isInternational ? 50 : 0)
-                )}
-              </h2>
+              <h2 className="basket-total-amount text-right">{displayTotal}</h2>
             </td>
           </tr>
         </tbody>

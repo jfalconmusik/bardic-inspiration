@@ -38,9 +38,9 @@ const Navigation = () => {
     return () => window.removeEventListener("scroll", scrollHandler);
   }, []);
 
-  const onClickLink = (e) => {
-    if (store.isAuthenticating) e.preventDefault();
-  };
+  // const onClickLink = (e) => {
+  //   if (store.isAuthenticating) e.preventDefault();
+  // };
 
   // disable the basket toggle to these pathnames
   const basketDisabledpathnames = [
@@ -72,7 +72,10 @@ const Navigation = () => {
   return (
     <nav className="navigation" ref={navbar}>
       <div className="logo">
-        <Link onClick={onClickLink} to="/">
+        <Link
+          // onClick
+          to="/"
+        >
           <img alt="Logo" src={logo} />
         </Link>
       </div>
@@ -107,6 +110,16 @@ const Navigation = () => {
             Recommended
           </NavLink>
         </li>
+        {store?.user?.role === "ADMIN" && (
+          <li>
+            <NavLink
+              activeClassName="navigation-menu-active"
+              to={ROUTE.ADMIN_DASHBOARD}
+            >
+              Admin
+            </NavLink>
+          </li>
+        )}
       </ul>
       {(pathname === ROUTE.SHOP || pathname === ROUTE.SEARCH) && (
         <FiltersToggle>
@@ -143,7 +156,7 @@ const Navigation = () => {
             {pathname !== ROUTE.SIGNUP && (
               <Link
                 className="button button-small"
-                onClick={onClickLink}
+                // onClick={onClickLink}
                 to={ROUTE.SIGNUP}
               >
                 Sign Up
@@ -152,7 +165,7 @@ const Navigation = () => {
             {pathname !== ROUTE.SIGNIN && (
               <Link
                 className="button button-small button-muted margin-left-s"
-                onClick={onClickLink}
+                // onClick={onClickLink}
                 to={ROUTE.SIGNIN}
               >
                 Sign In

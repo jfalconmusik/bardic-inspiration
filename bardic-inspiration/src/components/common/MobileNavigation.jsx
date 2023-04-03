@@ -53,7 +53,7 @@ const Navigation = (props) => {
                 <li className="mobile-navigation-item">
                   <Link
                     className="navigation-menu-link"
-                    onClick={onClickLink}
+                    // onClick={onClickLink}
                     to={SIGNIN}
                   >
                     Sign In

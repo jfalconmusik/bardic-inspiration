@@ -55,7 +55,7 @@ const Basket = () => {
     }
   };
 
-  return user && user.role === "ADMIN" && pathname.includes("admin") ? null : (
+  return user && user.role === "ADMIN" && pathname.includes("/admin") ? null : (
     <Boundary>
       <Modal isOpen={isOpenModal} onRequestClose={onCloseModal}>
         <p className="text-center">You must sign in to continue checking out</p>
