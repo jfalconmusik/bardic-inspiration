@@ -6,12 +6,18 @@ const Context = React.createContext({
 
 function ContextProvider({ children }) {
   const [cost, setCost] = useState(0);
+
+  const [paymentProcessing, setPaymentProcessing] = useState(false);
+
   ////
   return (
     <Context.Provider
       value={{
         cost,
         setCost,
+
+        paymentProcessing,
+        setPaymentProcessing,
       }}
     >
       {children}

@@ -6,6 +6,7 @@ import React, { useContext, useEffect, useRef } from "react";
 import { Context } from "../../../Context";
 import { useSelector } from "react-redux";
 import { getFunctions, httpsCallable } from "firebase/functions";
+import { PaymentElement } from "@stripe/react-stripe-js";
 
 const CreditPayment = () => {
   const { values, setValues } = useFormikContext();
@@ -15,14 +16,16 @@ const CreditPayment = () => {
   const containerRef = useRef(null);
   const checkboxContainerRef = useRef(null);
 
+  const { paymentProcessing, focus } = useContext(Context);
+
   const functions = getFunctions();
 
-  const store = useSelector((state) => ({
-    basketLength: state.basket.length,
-    user: state.auth,
-    isAuthenticating: state.app.isAuthenticating,
-    isLoading: state.app.loading,
-  }));
+  // const store = useSelector((state) => ({
+  //   basketLength: state.basket.length,
+  //   user: state.auth,
+  //   isAuthenticating: state.app.isAuthenticating,
+  //   isLoading: state.app.loading,
+  // }));
 
   const toggleCollapse = () => {
     const cn = containerRef.current;
@@ -41,13 +44,18 @@ const CreditPayment = () => {
   };
 
   useEffect(() => {
-    toggleCollapse();
-  }, [values.type]);
+    // if (focus) {
+    setTimeout(() => {
+      toggleCollapse();
+    }, 700);
+
+    // }
+  }, [values.type, focus]);
 
   const onCreditModeChange = (e) => {
     if (e.target.checked) {
       setValues({ ...values, type: "credit" });
-      toggleCollapse();
+      // toggleCollapse();
     }
   };
 
@@ -57,28 +65,6 @@ const CreditPayment = () => {
       e.preventDefault();
     }
   };
-
-  const createIntent = async () => {
-    if (store.user) {
-      try {
-        const createPaymentIntent = httpsCallable(
-          functions,
-          "createPaymentIntent"
-        );
-        await createPaymentIntent({ cost }).then((response) => {
-          console.log(response);
-        });
-      } catch (error) {
-        console.log("Unable to run callable: ", error);
-      }
-    } else {
-      console.log("no user.");
-    }
-  };
-
-  useEffect(() => {
-    createIntent();
-  }, [cost, store.user]);
 
   return (
     <>
@@ -117,7 +103,7 @@ const CreditPayment = () => {
           </div>
         </div>
         <div className="checkout-collapse-sub" ref={collapseContainerRef}>
-          <span className="d-block padding-s text-center">Accepted Cards</span>
+          {/* <span className="d-block padding-s text-center">Accepted Cards</span>
           <div className="checkout-cards-accepted d-flex-center">
             <div className="payment-img payment-img-visa" title="Visa" />
             <div
@@ -133,56 +119,29 @@ const CreditPayment = () => {
               className="payment-img payment-img-discover"
               title="Discover"
             />
-          </div>
+          </div> */}
           <br />
-          <div className="checkout-field margin-0">
-            <div className="checkout-fieldset">
-              <div className="checkout-field">
-                <Field
-                  name="name"
-                  type="text"
-                  label="* Name on Card"
-                  placeholder="Jane Doe"
-                  component={CustomInput}
-                  style={{ textTransform: "capitalize" }}
-                  inputRef={cardInputRef}
-                />
-              </div>
-              <div className="checkout-field">
-                <Field
-                  name="cardnumber"
-                  type="text"
-                  maxLength={19}
-                  onKeyDown={handleOnlyNumberInput}
-                  label="* Card Number"
-                  placeholder="Enter your card number"
-                  component={CustomInput}
-                />
+          <>
+            <div className="checkout-field margin-0">
+              <div className="checkout-fieldset">
+                <div className="checkout-field">
+                  <PaymentElement inputRef={cardInputRef} />
+                  <Field
+                    name="name"
+                    type="text"
+                    label=""
+                    placeholder="Jane Doe"
+                    component={CustomInput}
+                    style={{
+                      textTransform: "capitalize",
+                      visibility: "hidden",
+                    }}
+                    inputRef={cardInputRef}
+                  />
+                </div>
               </div>
             </div>
-            <div className="checkout-fieldset">
-              <div className="checkout-field">
-                <Field
-                  name="expiry"
-                  type="date"
-                  label="* Expiry Date"
-                  placeholder="Enter your expiry date"
-                  component={CustomInput}
-                />
-              </div>
-              <div className="checkout-field">
-                <Field
-                  name="ccv"
-                  type="text"
-                  maxLength={4}
-                  onKeyDown={handleOnlyNumberInput}
-                  label="* CCV"
-                  placeholder="****"
-                  component={CustomInput}
-                />
-              </div>
-            </div>
-          </div>
+          </>
         </div>
       </div>
     </>

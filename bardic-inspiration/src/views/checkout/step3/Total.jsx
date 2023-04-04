@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { setPaymentDetails } from "../../../redux/actions/checkoutActions";
 
 const Total = ({ isInternational, subtotal }) => {
-  const { values, submitForm } = useFormikContext();
+  const { values, submitForm, onConfirm } = useFormikContext();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -30,25 +30,6 @@ const Total = ({ isInternational, subtotal }) => {
         </h2>
       </div>
       <br />
-      <div className="checkout-shipping-action">
-        <button
-          className="button button-muted"
-          onClick={() => onClickBack(values)}
-          type="button"
-        >
-          <ArrowLeftOutlined />
-          &nbsp; Go Back
-        </button>
-        <button
-          className="button"
-          disabled={false}
-          onClick={submitForm}
-          type="button"
-        >
-          <CheckOutlined />
-          &nbsp; Confirm
-        </button>
-      </div>
     </>
   );
 };

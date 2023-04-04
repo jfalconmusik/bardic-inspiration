@@ -21,3 +21,4 @@ export const VIEW_PRODUCT = "/product/:id";
 export const TERMS_OF_SERVICE = "/terms-of-service";
 export const PRIVACY_POLICY = "/privacy-policy";
 export const DATA_DELETION_POLICY = "/data-deletion-policy";
+export const PAYMENT_COMPLETE = "/payment-complete";

@@ -144,6 +144,10 @@ const AppRouter = () => (
           element={<view.DataDeletion />}
           path={ROUTES.DATA_DELETION_POLICY}
         />
+        <Route
+          element={<view.PaymentComplete />}
+          path={ROUTES.PAYMENT_COMPLETE}
+        />
         <Route element={<view.PageNotFound />} />
       </Routes>
       <Footer />

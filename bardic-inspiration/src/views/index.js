@@ -20,3 +20,4 @@ export { default as ViewProduct } from "./view_product";
 export { default as PrivacyPolicy } from "./privacy";
 export { default as TermsOfService } from "./terms";
 export { default as DataDeletion } from "./data-deletion";
+export { default as PaymentComplete } from "./payment-complete";
